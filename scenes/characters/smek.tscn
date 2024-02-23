@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcx6v0f7ph6ef"]
+
+[ext_resource type="Script" path="res://scripts/characters/smek.gd" id="1_bxqr3"]
+[ext_resource type="Texture2D" uid="uid://3hjgqyd0kjtb" path="res://assets/characters/smek_walk_idle_quad_direction.png" id="1_tc4ng"]
+
+[node name="Smek" type="CharacterBody2D"]
+script = ExtResource("1_bxqr3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_tc4ng")
+hframes = 18
+vframes = 10
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-10, 6, -7, 13, 8, 13, 5, 1, 4, -10, -7, -10, -8, 1)

@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://ywntwx8l1x8i"]
+
+[ext_resource type="PackedScene" uid="uid://bcx6v0f7ph6ef" path="res://scenes/characters/smek.tscn" id="1_jydqi"]
+
+[node name="Office" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+
+[node name="Smek" parent="." instance=ExtResource("1_jydqi")]
+position = Vector2(113, 92)
