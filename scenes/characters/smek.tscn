@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bcx6v0f7ph6ef"]
+[gd_scene load_steps=27 format=3 uid="uid://bcx6v0f7ph6ef"]
 
 [ext_resource type="Script" path="res://scripts/characters/smek.gd" id="1_bxqr3"]
 [ext_resource type="Texture2D" uid="uid://3hjgqyd0kjtb" path="res://assets/characters/smek_walk_idle_quad_direction.png" id="1_tc4ng"]
@@ -167,6 +167,69 @@ _data = {
 "walk_west": SubResource("Animation_vuq7x")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d2m0v"]
+animation = &"idle_south"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kibgj"]
+animation = &"idle_north"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yl0vy"]
+animation = &"idle_east"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4ahjo"]
+animation = &"idle_west"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_tspwr"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_d2m0v")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_kibgj")
+blend_point_1/pos = Vector2(0, -1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_yl0vy")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_4ahjo")
+blend_point_3/pos = Vector2(-1, 0)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0l0va"]
+animation = &"walk_south"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f5r2t"]
+animation = &"walk_north"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i8gka"]
+animation = &"walk_east"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qw44c"]
+animation = &"walk_west"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_162mf"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_0l0va")
+blend_point_0/pos = Vector2(0, 1.1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_f5r2t")
+blend_point_1/pos = Vector2(0, -1.1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_i8gka")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_qw44c")
+blend_point_3/pos = Vector2(-1, 0)
+min_space = Vector2(-1, -1.1)
+max_space = Vector2(1, 1.1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6tvgv"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vwut0"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_33bf6"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_d1ekr"]
+states/idle/node = SubResource("AnimationNodeBlendSpace2D_tspwr")
+states/idle/position = Vector2(371.875, 100)
+states/walk/node = SubResource("AnimationNodeBlendSpace2D_162mf")
+states/walk/position = Vector2(553.875, 100)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_6tvgv"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_vwut0"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_33bf6")]
+graph_offset = Vector2(-55.125, -7.73999)
+
 [node name="Smek" type="CharacterBody2D"]
 script = ExtResource("1_bxqr3")
 
@@ -182,3 +245,12 @@ polygon = PackedVector2Array(-10, 6, -7, 13, 8, 13, 5, 1, 4, -10, -7, -10, -8, 1
 libraries = {
 "": SubResource("AnimationLibrary_56ns4")
 }
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_56ns4")
+}
+tree_root = SubResource("AnimationNodeStateMachine_d1ekr")
+anim_player = NodePath("../AnimationPlayer")
+parameters/idle/blend_position = Vector2(0, 0)
+parameters/walk/blend_position = Vector2(0, 0)
